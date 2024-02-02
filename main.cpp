@@ -1,47 +1,28 @@
-#include<iostream>
-#include<sstream>
-#include<queue>
+#include <iostream>
+#include <algorithm>
 
 using namespace std;
 
-string cmd[100], func;
-queue<int> q;
-int num, param;
-int i;
+int d[1024], a[1024], num;
+int i, j;
 
-int main()
-{
+int main(){
+    freopen("input.txt", "r", stdin);
+
     cin >> num;
 
-    for (i = 0; i <= num; i++)
-        getline(cin, cmd[i]);
+    for (i = 0; i < num; i++)
+        cin >> a[i];
 
-    for (i = 0; i <= num; i++){
-        istringstream iss(cmd[i]);
-
-        iss >> func;
-
-        if (func == "push"){
-            iss >> param;
-            q.push(param);
-        }else if (func == "front")
-            cout << q.front() << endl;
-        else if (func == "back")
-            cout << q.back() << endl;    
-        else if (func == "size")
-            cout << q.size() << endl;   
-        else if (func == "empty")
-            cout << q.empty() << endl;  
-        else if (func == "pop"){
-            if (q.empty())
-                cout << "-1" << endl;
-            else{
-                cout << q.front() << endl;
-                q.pop();
-            }
-        }
-    }
+    d[0] = a[0];
+    d[1] = d[0] + a[1];
+    d[2] = d[0] + d[1];
+    for (i = 3; i < num; i++)
+        d[i] = max(d[i - 3] + a[i - 1] + a[i], max(d[i - 2]+a[i], d[i - 1]));
     
+
+    for (i = 0; i < num; i++)
+        cout << d[i] << " ";
 
     return 0;
 }
