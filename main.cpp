@@ -1,47 +1,25 @@
-#include<iostream>
-#include<sstream>
-#include<queue>
+#include <iostream>
+#include <algorithm>
+#include <string>
 
 using namespace std;
 
-string cmd[100], func;
-queue<int> q;
-int num, param;
+string num_str;
+int num, sum;
 int i;
 
-int main()
-{
-    cin >> num;
+int main(){
+    freopen("input.txt", "r", stdin);
 
-    for (i = 0; i <= num; i++)
-        getline(cin, cmd[i]);
-
-    for (i = 0; i <= num; i++){
-        istringstream iss(cmd[i]);
-
-        iss >> func;
-
-        if (func == "push"){
-            iss >> param;
-            q.push(param);
-        }else if (func == "front")
-            cout << q.front() << endl;
-        else if (func == "back")
-            cout << q.back() << endl;    
-        else if (func == "size")
-            cout << q.size() << endl;   
-        else if (func == "empty")
-            cout << q.empty() << endl;  
-        else if (func == "pop"){
-            if (q.empty())
-                cout << "-1" << endl;
-            else{
-                cout << q.front() << endl;
-                q.pop();
-            }
-        }
-    }
+    cin >> num_str;
     
+    reverse(num_str.begin(), num_str.end());
+
+    for (i = 0; i < num_str.size(); i++)
+        sum += num_str.at(i) - 48;
+    num = stoi(num_str);
+
+    cout << num << endl << sum << endl;
 
     return 0;
 }
