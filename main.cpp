@@ -1,47 +1,30 @@
-#include<iostream>
-#include<sstream>
-#include<queue>
+#include <iostream>
+#include <algorithm>
 
 using namespace std;
 
-string cmd[100], func;
-queue<int> q;
-int num, param;
-int i;
+// array of number // array of number // straight number count
+int num_arr[1024], numc, sn_arr;
+int i, j = 1;
 
-int main()
-{
-    cin >> num;
+int main(){
+    freopen("input.txt","r", stdin);
+    cin >> numc;
 
-    for (i = 0; i <= num; i++)
-        getline(cin, cmd[i]);
+    for (i = 0; i < numc; i++)
+        cin >> num_arr[i];
 
-    for (i = 0; i <= num; i++){
-        istringstream iss(cmd[i]);
-
-        iss >> func;
-
-        if (func == "push"){
-            iss >> param;
-            q.push(param);
-        }else if (func == "front")
-            cout << q.front() << endl;
-        else if (func == "back")
-            cout << q.back() << endl;    
-        else if (func == "size")
-            cout << q.size() << endl;   
-        else if (func == "empty")
-            cout << q.empty() << endl;  
-        else if (func == "pop"){
-            if (q.empty())
-                cout << "-1" << endl;
-            else{
-                cout << q.front() << endl;
-                q.pop();
-            }
+    for (i = 0; i < numc; i++){
+        if (num_arr[i] <= num_arr[i + 1])
+            j++;
+        else{
+            if (j >= sn_arr)
+                sn_arr = j;
+            j = 1;
         }
     }
-    
+
+    cout << sn_arr << endl;
 
     return 0;
 }
