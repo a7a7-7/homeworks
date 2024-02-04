@@ -1,47 +1,46 @@
-#include<iostream>
-#include<sstream>
-#include<queue>
+#include <iostream>
+#include <algorithm>
 
 using namespace std;
 
-string cmd[100], func;
-queue<int> q;
-int num, param;
+int dice[3], consc = 1, money, consn;
 int i;
 
-int main()
-{
-    cin >> num;
+int main(){
+    freopen("input.txt", "r", stdin);
 
-    for (i = 0; i <= num; i++)
-        getline(cin, cmd[i]);
+    for (i = 0; i < 3; i++)
+        cin >> dice[i];
 
-    for (i = 0; i <= num; i++){
-        istringstream iss(cmd[i]);
+    sort(dice, dice + 3);
 
-        iss >> func;
-
-        if (func == "push"){
-            iss >> param;
-            q.push(param);
-        }else if (func == "front")
-            cout << q.front() << endl;
-        else if (func == "back")
-            cout << q.back() << endl;    
-        else if (func == "size")
-            cout << q.size() << endl;   
-        else if (func == "empty")
-            cout << q.empty() << endl;  
-        else if (func == "pop"){
-            if (q.empty())
-                cout << "-1" << endl;
-            else{
-                cout << q.front() << endl;
-                q.pop();
-            }
+    for (i = 0; i < 2; i++)
+        if (dice[i] == dice[i + 1]){
+            consc++;
+            consn = dice[i];
         }
-    }
+
+    switch (consc){
+    case 3:
+        money = 10000 + consn * 1000;
+
+        break;
+
+    case 2:
+        money = 1000 + consn * 100;
+
+        break;
+
+    case 1:
+        money = *max_element(dice, dice + 3) * 100;
+
+        break;
     
+    default:
+        break;
+    }
+
+    cout << money << endl;
 
     return 0;
 }
