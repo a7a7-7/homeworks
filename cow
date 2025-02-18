@@ -1,0 +1,36 @@
+#include<iostream>
+#include<queue>
+
+using namespace std;
+
+queue<pair<int,int>> q;
+int ch[10000000];
+int n, k;
+
+int main() {
+    cin >> n >> k;
+    
+    ch[n] = 1;
+    q.push({n, 0});
+    pair<int, int> m;
+    while (!q.empty()) {
+        m = q.front();
+        q.pop();
+        if (m.first == k)
+            break;
+        if (ch[m.first + 1] != 1 && m.first + 1 >= n){
+            q.push({m.first + 1, m.second + 1});
+            ch[m.first + 1] = 1;
+        }if (ch[m.first - 1] != 1 && m.first - 1 >= n){
+            q.push({m.first - 1, m.second + 1});
+            ch[m.first - 1] = 1;
+        }if (ch[m.first * 2] != 1 && m.first * 2 >= n){
+            q.push({m.first * 2, m.second + 1});
+            ch[m.first * 2] = 1;
+        }
+    }
+
+    cout << m.second << endl;
+
+    return 0;
+}
