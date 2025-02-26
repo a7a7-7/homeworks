@@ -1,0 +1,32 @@
+#include<iostream>
+#include<cstring>
+#include<algorithm>
+
+using namespace std;
+
+int num, bag, w[1024], ptmp, d[1024], c[1024], m;
+int i, j;
+
+int main() {
+    freopen("input.txt", "r", stdin);
+    cin >> num >> bag;
+
+    for (i = 0; i < num; i++)
+        cin >> w[i];
+
+    for (i = 0; i < num; i++) {
+        cin >> ptmp;
+        for (j = 0; j <= bag; j++) {
+            if (c[j] == 1) continue;
+            d[j + w[i]] = max(d[j], d[j] + ptmp);
+            c[j + w[i]] = 1;
+        }
+        m = max(m, *max_element(d, d + bag + 1));
+        memset(c, 0, sizeof(c));
+    }
+
+    cout << m << endl;
+    
+
+    return 0;
+}
